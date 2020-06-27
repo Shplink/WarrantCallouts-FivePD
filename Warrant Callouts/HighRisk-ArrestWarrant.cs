@@ -5,12 +5,12 @@ using System.Text;
 using System.Threading.Tasks;
 using CitizenFX.Core;
 using static CitizenFX.Core.Native.API;
-using CalloutAPI;
+using FivePD.API;
 
 namespace HighRiskArrestWarrant
 {
-    [CalloutProperties("HighRiskArrestWarrant", "Shplink", "1.0", Callout.Probability.Low)]
-    public class HighRiskArrestWarrant : CalloutAPI.Callout
+    [CalloutProperties("HighRiskArrestWarrant", "Shplink", "1.1")]
+    public class HighRiskArrestWarrant : FivePD.API.Callout
     {
         Ped suspect;
 
@@ -36,7 +36,7 @@ namespace HighRiskArrestWarrant
             float offsetX = random.Next(100, 600);
             float offsetY = random.Next(100, 600);
 
-            InitBase(World.GetNextPositionOnStreet(Game.PlayerPed.GetOffsetPosition(new Vector3(offsetX, offsetY, 0))));
+            InitInfo(World.GetNextPositionOnStreet(Game.PlayerPed.GetOffsetPosition(new Vector3(offsetX, offsetY, 0))));
 
             this.ShortName = "High Risk Arrest Warrant";
             this.CalloutDescription = "A High Risk Arrest Warrant has been issued. The suspect is to be considered Armed and Dangerous. Respond Code 3";
@@ -44,9 +44,9 @@ namespace HighRiskArrestWarrant
             this.StartDistance = 30f;
         }
 
-        public async override Task Init()
+        public async override Task OnAccept()
         {
-            OnAccept();
+            base.InitBlip();
 
             suspect = await SpawnPed(GetRandomPed(), Location);
 

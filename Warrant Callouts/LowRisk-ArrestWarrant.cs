@@ -2,12 +2,12 @@
 using System.Threading.Tasks;
 using CitizenFX.Core;
 using static CitizenFX.Core.Native.API;
-using CalloutAPI;
+using FivePD.API;
 
 namespace LowRiskArrestWarrant
 {
-    [CalloutProperties("LRArrestWarrant", "Shplink", "1.0", Callout.Probability.Medium)]
-    public class LRArrestWarrant : CalloutAPI.Callout
+    [CalloutProperties("LowRiskArrestWarrant", "Shplink", "1.1")]
+    public class LRArrestWarrant : FivePD.API.Callout
     {
         Ped suspect;
 
@@ -17,17 +17,16 @@ namespace LowRiskArrestWarrant
             float offsetX = random.Next(100, 600);
             float offsetY = random.Next(100, 600);
 
-            InitBase(World.GetNextPositionOnStreet(Game.PlayerPed.GetOffsetPosition(new Vector3(offsetX, offsetY, 0))));
+            InitInfo(World.GetNextPositionOnStreet(Game.PlayerPed.GetOffsetPosition(new Vector3(offsetX, offsetY, 0))));
 
             this.ShortName = "Low-Risk Arrest Warrant";
             this.CalloutDescription = "A Low-Risk Arrest Warrant has been issued by the State. Respond Code 2";
             this.ResponseCode = 2;
             this.StartDistance = 30f;
         }
-
-        public async override Task Init()
+        public async override Task OnAccept()
         {
-            OnAccept();
+            this.InitBlip();
 
             suspect = await SpawnPed(GetRandomPed(), Location);
 

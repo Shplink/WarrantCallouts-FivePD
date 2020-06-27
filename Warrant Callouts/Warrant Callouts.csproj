@@ -32,10 +32,13 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="CalloutAPI.net">
-      <HintPath>..\..\..\references\CalloutAPI.net.dll</HintPath>
+      <HintPath>..\..\..\..\CalloutAPI.net.dll</HintPath>
     </Reference>
     <Reference Include="CitizenFX.Core">
       <HintPath>..\..\..\references\CitizenFX.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="FivePD.net">
+      <HintPath>..\FivePD.net.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
